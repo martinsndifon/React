@@ -142,9 +142,9 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
-
+/*
 // Object Destructuring
-const book = getBook(2);
+const book = getBook(1);
 
 // const title = book.titles;
 // const author = book.author;
@@ -158,5 +158,95 @@ console.log(author, title, genres);
 // const secondaryGenre = genres[1];
 // const thirdElement = genres[2];
 
-const [primaryGenre, secondaryGenre, thirdElement] = genres;
-console.log(primaryGenre, secondaryGenre, thirdElement);
+const [primaryGenre, secondaryGenre, thirdElement, ...others] = genres; // rest operator
+console.log(primaryGenre, secondaryGenre, thirdElement, others);
+
+const newGenres = [...genres, 'epic fantasy']; // spread operator
+console.log(newGenres);
+
+const updatedBook = { ...book, moviePublicationDate: '2001-12-19' }; // object spread
+console.log(updatedBook);
+
+// optional chanining
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0; // nullish coalescing operator
+  return goodreads + librarything;
+}
+console.log(getTotalReviewCount(book));
+*/
+/*
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0; // nullish coalescing operator
+  return goodreads + librarything;
+}
+const books = getBooks();
+
+// map method
+const titles = books.map((book) => book.title);
+titles;
+
+const essentials = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book),
+}));
+essentials;
+
+// filter method
+const longBooks = books.filter((book) => book.pages > 500);
+longBooks;
+
+const adventureBooks = books
+  .filter((book) => book.genres.includes('adventure'))
+  .map((book) => book.title);
+adventureBooks;
+
+// reduce method
+const pagesOfAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+pagesOfAllBooks;
+
+// sort method
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.slice().sort((a, b) => b - a);
+sorted;
+arr;
+
+const sortedByPages = books
+  .slice()
+  .sort((a, b) => a.pages - b.pages)
+  .map((book) => book.title);
+sortedByPages;
+
+// Working without mutation
+// 1) Add a book object to array
+const newBook = {
+  id: 6,
+  title: 'Harry Potter and the Chamber of Secrets',
+  author: 'J. K. Rowling',
+};
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+// 2) Delete book object from array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3) Update a book object in the array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id == 1 ? { ...book, pages: 1210 } : book
+);
+booksAfterUpdate;
+*/
+
+// async recap
+async function getTodo() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
+const todo = getTodo().then((res) => console.log(res));
+console.log('martins');
