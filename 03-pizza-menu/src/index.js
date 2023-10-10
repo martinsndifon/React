@@ -15,7 +15,7 @@ const pizzaData = [
     ingredients: 'Tomato and mozarella',
     price: 10,
     photoName: 'pizzas/margherita.jpg',
-    soldOut: false,
+    soldOut: true,
   },
   {
     name: 'Pizza Spinaci',
@@ -71,6 +71,7 @@ function Menu() {
   const pizzas = pizzaData;
   // const pizzas = [];
   const numPizzas = pizzas.length;
+  console.log('free man');
 
   return (
     <main className="menu">
@@ -96,17 +97,15 @@ function Menu() {
 }
 
 function Pizza({ pizzaObj }) {
-  console.log(pizzaObj);
-
-  if (pizzaObj.soldOut) return null;
+  // if (pizzaObj.soldOut) return null;
 
   return (
-    <li className="pizza">
+    <li className={pizzaObj.soldOut ? 'pizza sold-out' : 'pizza'}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? 'Sold out' : pizzaObj.price}</span>
       </div>
     </li>
   );
@@ -117,11 +116,7 @@ function Footer() {
   const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
 
-  // if (hour >= openHour && hour <= closeHour) {
-  //   alert("We're currently open");
-  // } else alert("Sorry we're closed");
   return (
     <footer className="footer">
       {isOpen ? (
