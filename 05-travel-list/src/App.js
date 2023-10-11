@@ -71,6 +71,7 @@ function PackingList() {
 }
 
 function Item({ item }) {
+  const [fake, setFake] = useState('');
   return (
     <li>
       <span style={item.packed ? { textDecoration: 'line-through' } : {}}>
