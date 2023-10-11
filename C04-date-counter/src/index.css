@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  font-family: 'Roboto Mono', sans-serif;
+  color: #252525;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-text {
+  margin-top: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.fmain {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+button {
+  padding: 3.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 0 5px;
+}
