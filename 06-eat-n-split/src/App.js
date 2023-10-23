@@ -80,6 +80,7 @@ function App() {
         <FormSplitBill
           selectedFriend={selectedFriend}
           onSplitBill={handleSplitBill}
+          key={selectedFriend.id}
         />
       )}
     </div>
@@ -174,7 +175,7 @@ function FormAddFriend({ onSetFriend }) {
 function FormSplitBill({ selectedFriend, onSplitBill }) {
   const [bill, setBill] = useState('');
   const [expense, setExpense] = useState('');
-  const paidByFriend = bill ? bill - expense : null;
+  const paidByFriend = bill ? bill - expense : 0;
   const [option, setOption] = useState('user');
 
   function handleSubmit(e) {
