@@ -59,7 +59,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [query, setQuery] = useState('inception');
+  const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
 
   function handleSelectMovie(id) {
@@ -79,12 +79,15 @@ export default function App() {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchMovies() {
       setIsLoading(true);
       setError('');
       try {
         const res = await fetch(
-          `http://www.omdbapi.com/?s=${query}&apikey=${KEY}`
+          `http://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
+          { signal: controller.signal }
         );
 
         if (!res.ok) {
@@ -95,8 +98,11 @@ export default function App() {
         if (data.Response === 'False') throw new Error(data.Error);
 
         setMovies(data.Search);
+        setError('');
       } catch (err) {
-        setError(err.message);
+        if (err.name !== 'AbortError') {
+          setError(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -108,7 +114,12 @@ export default function App() {
       return;
     }
 
+    handleCloseMovie();
     fetchMovies();
+
+    return function () {
+      controller.abort();
+    };
   }, [query]);
 
   return (
@@ -300,6 +311,18 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   }
 
   useEffect(() => {
+    function callback(e) {
+      if (e.code === 'Escape') {
+        onCloseMovie();
+      }
+    }
+    document.addEventListener('keydown', callback);
+    return () => {
+      document.removeEventListener('keydown', callback);
+    };
+  }, [onCloseMovie]);
+
+  useEffect(() => {
     setIsLoading(true);
     setError('');
     fetch(`http://www.omdbapi.com/?i=${selectedId}&apikey=${KEY}`)
@@ -308,6 +331,15 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       .then(() => setIsLoading(false))
       .catch((err) => setError(err.message));
   }, [selectedId]);
+
+  useEffect(() => {
+    if (!title) return;
+    document.title = title;
+
+    return function () {
+      document.title = 'usePopcorn';
+    };
+  }, [title]);
 
   return (
     <div className="details">
