@@ -1,31 +1,13 @@
-const initialState = {
-  balance: 0,
-  loan: 0,
-  loanPurpose: '',
-};
+import { configureStore } from '@reduxjs/toolkit';
 
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case 'account/deposit':
-      return { ...state, balance: state.balance + action.payload };
+import accountReducer from './features/accounts/accountSlice';
+import customerReducer from './features/customers/customerSlice';
 
-    case 'account/withdraw':
-      return { ...state, balance: state.balance - action.payload };
+const store = configureStore({
+  reducer: {
+    account: accountReducer,
+    customer: customerReducer,
+  },
+});
 
-    case 'account/requestLoan':
-      if (state.laon > 0) return state;
-      // later
-      return { ...state, loan: action.payload };
-
-    case 'account/payLoan':
-      return {
-        ...state,
-        loan: 0,
-        loanPurpose: '',
-        balance: state.balance - state.loan,
-      };
-
-    default:
-      return state;
-  }
-}
+export default store;
