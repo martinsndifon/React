@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../ui/Button';
+import { useSelector } from 'react-redux';
 
 const fakeCart = [
   {
@@ -30,23 +31,27 @@ function CreateOrder() {
   //   const [withPriority, setWithPriority] = useState(false);
   const navigation = useNavigation();
   const formErrors = useActionData();
+  const username = useSelector((store) => store.user.username);
 
   const isSubmitting = navigation.state === 'submitting';
   const cart = fakeCart;
 
   return (
     <div className="px-4 py-6">
-      <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
+      <h2 className="mb-8 text-xl font-semibold">
+        Ready to order? Let&#39;s go!
+      </h2>
 
       {/*<Form method="POST" action="/order/new">*/}
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
+          <label className="sm:basis-40">Name</label>
           <div className="grow">
             <input
               className="input w-full"
               type="text"
               name="customer"
+              defaultValue={username}
               required
             />
           </div>
