@@ -6,7 +6,10 @@ import Menu from './features/menu/Menu';
 import { loader as menuLoader } from './routerLoaders/menuLoader';
 import Cart from './features/cart/Cart';
 import CreateOrder from './features/order/CreateOrder';
-import { createOrderAction } from './routerActions/orderActions';
+import {
+  createOrderAction,
+  updateOrderAction,
+} from './routerActions/orderActions';
 import Order from './features/order/Order';
 import { loader as orderLoader } from './routerLoaders/orderLoader';
 import AppLayout from './ui/AppLayout';
@@ -40,6 +43,7 @@ const router = createBrowserRouter([
         element: <Order />,
         loader: orderLoader,
         errorElement: <Error />,
+        action: updateOrderAction,
       },
     ],
   },
