@@ -3,9 +3,9 @@ import GlobalStyles from './styles/GlobalStyles';
 import Button from './ui/Button';
 import Input from './ui/Input';
 import Heading from './ui/Heading';
+import Row from './ui/Row';
 
-const StyledApp = styled.div`
-  background-color: orange;
+const StyledApp = styled.main`
   padding: 20px;
 `;
 
@@ -14,11 +14,26 @@ function App() {
     <>
       <GlobalStyles />
       <StyledApp>
-        <Heading as='h1'>The Wild Oasis</Heading>
-        <Button>Check in</Button>
-        <Heading as='h2'>An h2 elem</Heading>
-        <Input type='number' placeholder='Number of guests' />
-        <Heading as='h3'>A h3 element</Heading>
+        <Row>
+          <Row type='horizontal'>
+            <Heading as='h1'>The Wild Oasis</Heading>
+            <div>
+              <Heading as='h3'>Check in and check out</Heading>
+              <Button>Check in</Button>
+              <Button variation='secondary' size='small'>
+                Check Out
+              </Button>
+            </div>
+          </Row>
+
+          <Row>
+            <Heading as='h2'>Form</Heading>
+            <form>
+              <Input type='number' placeholder='Number of guests' />
+              <Input type='number' placeholder='Number of guests' />
+            </form>
+          </Row>
+        </Row>
       </StyledApp>
     </>
   );
