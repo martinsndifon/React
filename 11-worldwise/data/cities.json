@@ -59,6 +59,18 @@
         "lng": "7.475269859462825"
       },
       "id": 98443199
+    },
+    {
+      "cityName": "Lagos",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2023-11-17T21:29:20.823Z",
+      "notes": "The town is nice but a little too crowded for my liking. May not visit again.",
+      "position": {
+        "lat": "6.455869917967793",
+        "lng": "3.3975219726562504"
+      },
+      "id": 98443200
     }
   ]
 }
